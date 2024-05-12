@@ -17,11 +17,11 @@ public class Model extends Observable {
     /** True iff game is ended. */
     private boolean gameOver;
 
+
     /* Coordinate System: column C, row R of the board (where row 0,
      * column 0 is the lower-left corner of the board) will correspond
      * to board.tile(c, r).  Be careful! It works like (x, y) coordinates.
      */
-
     /** Largest piece value. */
     public static final int MAX_PIECE = 2048;
 
@@ -200,39 +200,6 @@ public class Model extends Observable {
         return false;
     }
 
-    /**
-     * Returns true if there are any valid moves on the board.
-     * There are two ways that there can be valid moves:
-     * 1. There is at least one empty space on the board.
-     * 2. There are two adjacent tiles with the same value.
-     */
-    public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        if (emptySpaceExists(b)) {
-            return true;
-        }
-        for (int col = 0; col < b.size(); col++) {
-            for (int row = 0; row < b.size(); row++) {
-                Tile current = b.tile(col, row);
-                // Compare with right one:
-                if (col < b.size() - 1) {
-                    Tile right = b.tile(col + 1, row);
-                    if (right.value() == current.value()) {
-                        return true;
-                    }
-                }
-                // Compare with bottom one:
-                if (row < b.size() - 1) {
-                    Tile bottom = b.tile(col, row + 1);
-                    if (bottom.value() == current.value()) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 
     @Override
      /** Returns the model as a string, used for debugging. */
@@ -270,5 +237,38 @@ public class Model extends Observable {
     /** Returns hash code of Model’s string. */
     public int hashCode() {
         return toString().hashCode();
+    }
+
+    /**
+     * Returns true if there are any valid moves on the board.
+     * There are two ways that there can be valid moves:
+     * 1. There is at least one empty space on the board.
+     * 2. There are two adjacent tiles with the same value.
+     */
+    public static boolean atLeastOneMoveExists(Board b) {
+        // TODO: Fill in this function.
+        if (emptySpaceExists(b)) {
+            return true;
+        }
+        for (int col = 0; col < b.size(); col++) {
+            for (int row = 0; row < b.size(); row++) {
+                Tile current = b.tile(col, row);
+                // Compare with right one:
+                if (col < b.size() - 1) {
+                    Tile right = b.tile(col + 1, row);
+                    if (right.value() == current.value()) {
+                        return true;
+                    }
+                }
+                // Compare with bottom one:
+                if (row < b.size() - 1) {
+                    Tile bottom = b.tile(col, row + 1);
+                    if (bottom.value() == current.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
